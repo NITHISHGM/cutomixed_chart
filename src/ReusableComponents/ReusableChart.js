@@ -87,217 +87,224 @@ const ReusableChart = ({ chartType, data, xAxisKey, yAxisKey, id }) => {
   switch (chartType) {
     case "LINE":
       return (
-        <ResponsiveContainer width="100%" height={420}>
-          <LineChart
-            width={600}
-            height={250}
-            data={data}
-            margin={{ top: 30, right: 30, left: 20, bottom: 50 }}
-          >
-            <XAxis
-              dataKey={xAxisKey}
-              angle={-40}
-              textAnchor="end"
-              interval={0}
-            />
-            <YAxis />
-
-            <Tooltip />
-            <Legend
-              verticalAlign="top"
-              height={Math.ceil((yAxisKey?.length || 0) / 2) * 20 + 20}
-              onClick={handleLabelClick}
-              formatter={(value, entry, index) => (
-                <span
-                  className={isHidden(entry.dataKey) ? "legend-disabled" : ""}
-                >
-                  {value}
-                </span>
-              )}
-            />
-
-            {yAxisKey?.map((d, ind) => {
-              const isActive = !hiddenKeys.includes(d);
-              return (
-                <Line
-                  type="monotone"
-                  dataKey={d}
-                  stroke={isActive ? colors[id + ind] : "none"}
-                  activeDot={isActive ? { r: 8 } : null}
-                  dot={false}
-                />
-              );
-            })}
-            {data.length > 10 && (
-              <Brush
+        <div style={{ width: "100%", height: "350px" }}>
+          <ResponsiveContainer>
+            <LineChart
+              data={data}
+              margin={{ top: 30, right: 30, left: 20, bottom: 50 }}
+            >
+              <XAxis
                 dataKey={xAxisKey}
-                startIndex={data.length - 10}
-                endIndex={data.length - 1}
-                height={30}
-                y={380}
-                stroke="#8884d8"
+                angle={-40}
+                textAnchor="end"
+                interval={0}
               />
-            )}
-          </LineChart>
-        </ResponsiveContainer>
+              <YAxis />
+
+              <Tooltip />
+              <Legend
+                verticalAlign="top"
+                height={Math.ceil((yAxisKey?.length || 0) / 2) * 20 + 20}
+                onClick={handleLabelClick}
+                formatter={(value, entry, index) => (
+                  <span
+                    className={isHidden(entry.dataKey) ? "legend-disabled" : ""}
+                  >
+                    {value}
+                  </span>
+                )}
+              />
+
+              {yAxisKey?.map((d, ind) => {
+                const isActive = !hiddenKeys.includes(d);
+                return (
+                  <Line
+                    type="monotone"
+                    dataKey={d}
+                    stroke={isActive ? colors[id + ind] : "none"}
+                    activeDot={isActive ? { r: 8 } : null}
+                    dot={false}
+                  />
+                );
+              })}
+              {data.length > 10 && (
+                <Brush
+                  dataKey={xAxisKey}
+                  startIndex={data.length - 10}
+                  endIndex={data.length - 1}
+                  height={30}
+                  y={380}
+                  stroke="#8884d8"
+                />
+              )}
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
       );
     case "BAR":
       return (
-        <ResponsiveContainer width="100%" height={420}>
-          <BarChart
-            width={600}
-            height={250}
-            data={data}
-            margin={{ top: 30, right: 30, left: 20, bottom: 50 }}
-          >
-            <XAxis
-              dataKey={xAxisKey}
-              angle={-40}
-              textAnchor="end"
-              interval={0}
-            />
-            <YAxis />
-
-            <Tooltip />
-            <Legend
-              verticalAlign="top"
-              height={Math.ceil((yAxisKey?.length || 0) / 2) * 20 + 20}
-              onClick={handleLabelClick}
-              formatter={(value, entry, index) => (
-                <span
-                  className={isHidden(entry.dataKey) ? "legend-disabled" : ""}
-                >
-                  {value}
-                </span>
-              )}
-            />
-
-            {yAxisKey?.map((d, ind) => {
-              const isActive = !hiddenKeys.includes(d);
-              return (
-                <Bar dataKey={d} fill={isActive ? colors[id + ind] : "none"} />
-              );
-            })}
-            {data.length > 10 && (
-              <Brush
+        <div style={{ width: "100%", height: "350px" }}>
+          <ResponsiveContainer>
+            <BarChart
+              data={data}
+              margin={{ top: 30, right: 30, left: 20, bottom: 50 }}
+            >
+              <XAxis
                 dataKey={xAxisKey}
-                startIndex={data.length - 10}
-                endIndex={data.length - 1}
-                height={30}
-                y={380}
-                stroke="#8884d8"
+                angle={-40}
+                textAnchor="end"
+                interval={0}
               />
-            )}
-          </BarChart>
-        </ResponsiveContainer>
+              <YAxis />
+
+              <Tooltip />
+              <Legend
+                verticalAlign="top"
+                height={Math.ceil((yAxisKey?.length || 0) / 2) * 20 + 20}
+                onClick={handleLabelClick}
+                formatter={(value, entry, index) => (
+                  <span
+                    className={isHidden(entry.dataKey) ? "legend-disabled" : ""}
+                  >
+                    {value}
+                  </span>
+                )}
+              />
+
+              {yAxisKey?.map((d, ind) => {
+                const isActive = !hiddenKeys.includes(d);
+                return (
+                  <Bar
+                    dataKey={d}
+                    fill={isActive ? colors[id + ind] : "none"}
+                  />
+                );
+              })}
+              {data.length > 10 && (
+                <Brush
+                  dataKey={xAxisKey}
+                  startIndex={data.length - 10}
+                  endIndex={data.length - 1}
+                  height={30}
+                  y={380}
+                  stroke="#8884d8"
+                />
+              )}
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       );
     case "AREA":
       return (
-        <ResponsiveContainer width="100%" height={420}>
-          <AreaChart
-            width={600}
-            height={250}
-            data={data}
-            margin={{ top: 30, right: 30, left: 20, bottom: 50 }}
-          >
-            <XAxis
-              dataKey={xAxisKey}
-              angle={-40}
-              textAnchor="end"
-              interval={0}
-            />
-            <YAxis />
-
-            <Tooltip />
-            <Legend
-              verticalAlign="top"
-              height={Math.ceil((yAxisKey?.length || 0) / 2) * 20 + 20}
-              onClick={handleLabelClick}
-              formatter={(value, entry, index) => (
-                <span
-                  className={isHidden(entry.dataKey) ? "legend-disabled" : ""}
-                >
-                  {value}
-                </span>
-              )}
-            />
-            {yAxisKey?.map((d, ind) => {
-              const isActive = !hiddenKeys.includes(d);
-              return (
-                <Area
-                  type="monotone"
-                  dataKey={d}
-                  fill={isActive ? colors[id + ind] : "none"}
-                  stroke={isActive ? colors[id + ind] : "none"}
-                />
-              );
-            })}
-            {data.length > 10 && (
-              <Brush
+        <div style={{ width: "100%", height: "350px" }}>
+          <ResponsiveContainer>
+            <AreaChart
+              data={data}
+              margin={{ top: 30, right: 30, left: 20, bottom: 50 }}
+            >
+              <XAxis
                 dataKey={xAxisKey}
-                startIndex={data.length - 10}
-                endIndex={data.length - 1}
-                height={30}
-                y={380}
-                stroke="#8884d8"
+                angle={-40}
+                textAnchor="end"
+                interval={0}
               />
-            )}
-          </AreaChart>
-        </ResponsiveContainer>
+              <YAxis />
+
+              <Tooltip />
+              <Legend
+                verticalAlign="top"
+                height={Math.ceil((yAxisKey?.length || 0) / 2) * 20 + 20}
+                onClick={handleLabelClick}
+                formatter={(value, entry, index) => (
+                  <span
+                    className={isHidden(entry.dataKey) ? "legend-disabled" : ""}
+                  >
+                    {value}
+                  </span>
+                )}
+              />
+              {yAxisKey?.map((d, ind) => {
+                const isActive = !hiddenKeys.includes(d);
+                return (
+                  <Area
+                    type="monotone"
+                    dataKey={d}
+                    fill={isActive ? colors[id + ind] : "none"}
+                    stroke={isActive ? colors[id + ind] : "none"}
+                  />
+                );
+              })}
+              {data.length > 10 && (
+                <Brush
+                  dataKey={xAxisKey}
+                  startIndex={data.length - 10}
+                  endIndex={data.length - 1}
+                  height={30}
+                  y={380}
+                  stroke="#8884d8"
+                />
+              )}
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
       );
     case "RADAR":
       return (
-        <ResponsiveContainer width="100%" height={420}>
-          <RadarChart width={500} height={250} outerRadius="80%" data={data}>
-            <PolarGrid />
-            <PolarAngleAxis dataKey={xAxisKey} />
-            <PolarRadiusAxis angle={30} domain={[0, 150]} />
-            <Tooltip />
-            <Legend
-              verticalAlign="top"
-              height={Math.ceil((yAxisKey?.length || 0) / 2) * 20 + 20}
-              onClick={handleLabelClick}
-              formatter={(value, entry, index) => (
-                <span
-                  className={isHidden(entry.dataKey) ? "legend-disabled" : ""}
-                >
-                  {value}
-                </span>
-              )}
-            />
-            {yAxisKey.map((d, ind) => {
-              const isActive = !hiddenKeys.includes(d);
+        <div style={{ width: "100%", height: "350px" }}>
+          <ResponsiveContainer>
+            <RadarChart outerRadius="80%" data={data}>
+              <PolarGrid />
+              <PolarAngleAxis dataKey={xAxisKey} />
+              <PolarRadiusAxis angle={30} domain={[0, 150]} />
+              <Tooltip />
+              <Legend
+                verticalAlign="top"
+                height={Math.ceil((yAxisKey?.length || 0) / 2) * 20 + 20}
+                onClick={handleLabelClick}
+                formatter={(value, entry, index) => (
+                  <span
+                    className={isHidden(entry.dataKey) ? "legend-disabled" : ""}
+                  >
+                    {value}
+                  </span>
+                )}
+              />
+              {yAxisKey.map((d, ind) => {
+                const isActive = !hiddenKeys.includes(d);
 
-              return (
-                <Radar
-                  name={d}
-                  dataKey={d}
-                  fill={isActive ? colors[id + ind] : "none"}
-                  stroke={isActive ? colors[id + ind] : "none"}
-                  fillOpacity={0.6}
-                />
-              );
-            })}
-          </RadarChart>
-        </ResponsiveContainer>
+                return (
+                  <Radar
+                    name={d}
+                    dataKey={d}
+                    fill={isActive ? colors[id + ind] : "none"}
+                    stroke={isActive ? colors[id + ind] : "none"}
+                    fillOpacity={0.6}
+                  />
+                );
+              })}
+            </RadarChart>
+          </ResponsiveContainer>
+        </div>
       );
     case "PIE":
       return (
-        <ResponsiveContainer width="100%" height={420}>
-          <PieChart width={600} height={250}>
-            <Pie
-              data={data}
-              dataKey={xAxisKey}
-              cx="50%"
-              cy="50%"
-              outerRadius={100}
-              fill={colors[id]}
-              label
-            />
-            <Tooltip />
-            <Legend verticalAlign="top" height={100} />
-          </PieChart>
-        </ResponsiveContainer>
+        <div style={{ width: "100%", height: "350px" }}>
+          <ResponsiveContainer>
+            <PieChart>
+              <Pie
+                data={data}
+                dataKey={xAxisKey}
+                cx="50%"
+                cy="50%"
+                outerRadius={100}
+                fill={colors[id]}
+                label
+              />
+              <Tooltip />
+              <Legend verticalAlign="top" height={100} />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
       );
 
     default:
