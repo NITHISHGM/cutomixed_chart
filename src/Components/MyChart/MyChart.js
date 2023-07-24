@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Row, Col, Card, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { isEmpty } from "lodash";
+import { replaceJson } from "../../redux/ChartViewJsonSlice";
 import { getTableData } from "../../redux/TableSlice";
 import ReusableChart from "../../ReusableComponents/ReusableChart";
 import {
@@ -76,9 +77,15 @@ const MyChart = (props) => {
       [sourceId]: result,
     });
   }
+
+  useEffect(() => {
+    if (!isEmpty(items.left)) {
+      dispatch(replaceJson(items.left));
+    }
+  }, [items, dispatch]);
   return (
     <div>
-      {console.log("jsonData", jsonData)}
+      {console.log("jsonData", items)}
       <Row>
         <Col span={18}></Col>
         <Col span={6}>

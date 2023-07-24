@@ -7,8 +7,11 @@ const chartViewJsonSlice = createSlice({
     addJson: (state, action) => {
       state.jsonData.push(action.payload);
     },
+    replaceJson: (state, action) => {
+      state.jsonData = action.payload;
+    },
   },
 });
 
-export const { addJson } = chartViewJsonSlice.actions;
+export const { addJson, replaceJson } = chartViewJsonSlice.actions;
 export default chartViewJsonSlice.reducer;
