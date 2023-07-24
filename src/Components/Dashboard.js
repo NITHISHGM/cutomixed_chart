@@ -13,7 +13,7 @@ import {
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getTableData } from "../redux/TableSlice";
-import { addJson } from "../redux/ChartViewJsonSlice";
+import { addJson, replaceJson } from "../redux/ChartViewJsonSlice";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -61,6 +61,19 @@ const Dashboard = () => {
   const UpdateViewJsonData = useSelector(
     (state) => state.UpdateViewJson.jsonData
   );
+
+  useEffect(() => {
+    if (UpdateViewJsonData.length > 0) {
+      sessionStorage.setItem("jsonData", JSON.stringify(UpdateViewJsonData));
+    }
+  }, [UpdateViewJsonData]);
+
+  useEffect(() => {
+    let sessionStorageJson = JSON.parse(sessionStorage.getItem("jsonData"));
+    if (sessionStorageJson != null) {
+      dispatch(replaceJson(sessionStorageJson));
+    }
+  }, []);
 
   const HandleTableChange = (value) => {
     setIsXYSelectedColNames([]);
