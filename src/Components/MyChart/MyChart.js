@@ -42,16 +42,19 @@ const MyChart = (props) => {
   }, [newSelectedTblName]);
 
   useEffect(() => {
+    let count = 0;
     if (jsonData.length > 0) {
       jsonData.map((d) => {
         if (d.selectedTableName === isSelectedTableName) {
-          setavailableCharts(true);
+          count = count + 1;
           return true;
         } else {
-          setavailableCharts(false);
           return false;
         }
       });
+    }
+    if (count !== 0) {
+      setavailableCharts(true);
     } else {
       setavailableCharts(false);
     }
@@ -85,7 +88,12 @@ const MyChart = (props) => {
   }, [items, dispatch]);
   return (
     <div>
-      {console.log("jsonData", items)}
+      {console.log(
+        "jsonData",
+        tableData.length > 0,
+        availableCharts,
+        isSelectedTableName.length > 0
+      )}
       <Row>
         <Col span={18}></Col>
         <Col span={6}>
@@ -129,37 +137,68 @@ const MyChart = (props) => {
           />
         </Col>
       </Row>
-      <GridContextProvider onChange={onChange}>
-        <div
-          className="container"
-          style={{ overflow: "auto", height: "500px" }}
-        >
-          <GridDropZone
-            className="dropzone left"
-            id="left"
-            boxesPerRow={2}
-            rowHeight={500}
-          >
-            {items.left.map((item) => (
-              <GridItem key={item.cardTitle}>
-                <div className="grid-item">
-                  <div className="grid-item-content">
-                    <Card title={<span>{item.cardTitle}</span>}>
-                      <ReusableChart
-                        chartType={item.chartType}
-                        data={tableData}
-                        xAxisKey={item.xAxisKey}
-                        yAxisKey={item.yAxisKey}
-                        id={item.id}
-                      />
-                    </Card>
-                  </div>
+      {isSelectedTableName.length === 0}
+      {dataStatus ? (
+        <>fetching Charts...</>
+      ) : (
+        <>
+          {tableData.length > 0 &&
+          availableCharts &&
+          isSelectedTableName.length > 0 ? (
+            <>
+              <GridContextProvider onChange={onChange}>
+                <div
+                  className="container"
+                  style={{ overflow: "auto", height: "500px" }}
+                >
+                  <GridDropZone
+                    className="dropzone left"
+                    id="left"
+                    boxesPerRow={2}
+                    rowHeight={500}
+                  >
+                    {items.left.map((item) => (
+                      <>
+                        {item.selectedTableName === isSelectedTableName ? (
+                          <>
+                            {" "}
+                            <GridItem key={item.cardTitle}>
+                              <div className="grid-item">
+                                <div className="grid-item-content">
+                                  <Card title={<span>{item.cardTitle}</span>}>
+                                    <ReusableChart
+                                      chartType={item.chartType}
+                                      data={tableData}
+                                      xAxisKey={item.xAxisKey}
+                                      yAxisKey={item.yAxisKey}
+                                      id={item.id}
+                                    />
+                                  </Card>
+                                </div>
+                              </div>
+                            </GridItem>
+                          </>
+                        ) : (
+                          <></>
+                        )}
+                      </>
+                    ))}
+                  </GridDropZone>
                 </div>
-              </GridItem>
-            ))}
-          </GridDropZone>
-        </div>
-      </GridContextProvider>
+              </GridContextProvider>
+            </>
+          ) : (
+            <>
+              {" "}
+              {isSelectedTableName.length === 0 ? (
+                <>Choose charts to view charts</>
+              ) : (
+                <> no data available for the table</>
+              )}
+            </>
+          )}
+        </>
+      )}
     </div>
   );
 };
