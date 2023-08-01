@@ -147,7 +147,7 @@ const Dashboard = () => {
       <Row>
         <Col span={24}>
           <Button className="float-right" onClick={showModal}>
-            Create Layout
+            Create Chart
           </Button>
         </Col>
         <Col span={24}>

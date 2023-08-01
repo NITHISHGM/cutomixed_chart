@@ -133,7 +133,6 @@ const ReusableChart = ({ chartType, data, xAxisKey, yAxisKey, id }) => {
                   startIndex={data.length - 10}
                   endIndex={data.length - 1}
                   height={30}
-                  y={380}
                   stroke="#8884d8"
                 />
               )}
@@ -186,7 +185,6 @@ const ReusableChart = ({ chartType, data, xAxisKey, yAxisKey, id }) => {
                   startIndex={data.length - 10}
                   endIndex={data.length - 1}
                   height={30}
-                  y={380}
                   stroke="#8884d8"
                 />
               )}
@@ -240,7 +238,6 @@ const ReusableChart = ({ chartType, data, xAxisKey, yAxisKey, id }) => {
                   startIndex={data.length - 10}
                   endIndex={data.length - 1}
                   height={30}
-                  y={380}
                   stroke="#8884d8"
                 />
               )}
