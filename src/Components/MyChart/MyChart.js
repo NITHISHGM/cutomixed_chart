@@ -33,6 +33,7 @@ import {
   faCircleDot,
   faSpider,
   faPenToSquare,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { faChartBar } from "@fortawesome/free-regular-svg-icons";
 
@@ -324,7 +325,16 @@ const MyChart = (props) => {
                                     title={
                                       <span>
                                         {item.cardTitle}{" "}
-                                        <span className="float-right">
+                                        <span className="float-right cursor-pointer">
+                                          {" "}
+                                          <FontAwesomeIcon
+                                            onClick={() =>
+                                              handleOpenEditChart(item.id)
+                                            }
+                                            icon={faTrash}
+                                          />
+                                        </span>
+                                        <span className="float-right cursor-pointer pr-3">
                                           {" "}
                                           <FontAwesomeIcon
                                             onClick={() =>
